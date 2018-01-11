@@ -10,7 +10,7 @@ class App extends Component {
     super()
 
     this.state = {
-      currentPigs: hogs.sort((a,b) => this.sortCallBack(a,b)),
+      currentPigs: hogs.sort((a,b) => this.sortCallBack(a.name,b.name)),
       sortByName: true,
       showGreased: true,
       showUnGreased: true
@@ -29,29 +29,28 @@ class App extends Component {
 
   filterPigs = () => {
     if (this.state.showGreased && this.state.showUnGreased) {
-      this.setState({currentPigs: hogs})
+      this.setState({currentPigs: hogs}, this.executeSort)
     } else if (this.state.showGreased) {
       const newPigs = hogs.filter(p => p.greased)
-      this.setState({currentPigs: newPigs})
+      this.setState({currentPigs: newPigs}, this.executeSort)
     } else if (this.state.showUnGreased) {
       const newPigs = hogs.filter(p => !p.greased)
-      this.setState({currentPigs: newPigs})
+      this.setState({currentPigs: newPigs}, this.executeSort)
     } else {
-      this.setState({currentPigs: []})
+      this.setState({currentPigs: []}, this.executeSort)
     }
   }
 
   changeSort = (event) => {
-    console.log("sort", event.target.value)
-    //this.setState({sortByName: !this.state.sortByName})
+    this.setState({sortByName: !this.state.sortByName}, this.executeSort)
   }
 
   executeSort = () => {
     if (this.state.sortByName) {
-      this.setState({currentPigs: this.state.currentPigs.sort(this.sortCallBack)})
+      this.setState({currentPigs: this.state.currentPigs.sort((a,b) => this.sortCallBack(a.name,b.name))})
     } else {
       //
-      this.setState({currentPigs: this.state.currentPigs.sort(p => p["weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water"])})
+      this.setState({currentPigs: this.state.currentPigs.sort((a,b) => this.sortCallBack(b["weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water"], a["weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water"]))})
       //weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water:
     }
   }
