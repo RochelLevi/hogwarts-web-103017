@@ -1,9 +1,14 @@
 import React from 'react'
+import ToggleableHogCard from './ToggleableHogCard'
 
 const HogsList = (props) => {
   console.log(props.currentPigs)
   return (
-    <div>pigs</div>
+    <div>
+    {props.currentPigs.map(p =>
+      <ToggleableHogCard hog={p} />
+    )}
+    </div>
   )
 }
 

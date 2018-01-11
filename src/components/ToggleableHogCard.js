@@ -1,8 +1,11 @@
-Import React from 'react'
+import React from 'react'
+import DetailedHogCard from './DetailedHogCard'
+import HogCard from './HogCard'
 
-class ToggleableHogCard extends React.component{
-  constuctor(){
-    super()
+class ToggleableHogCard extends React.Component {
+
+  constructor() {
+    super();
 
     this.state = {
       showDetails: false
@@ -11,13 +14,10 @@ class ToggleableHogCard extends React.component{
 
   toggleCard = () => {
     this.setState({showDetails: !this.state.showDetails})
-
-
-
   }
 
   render(){
-    <div> {showDetails ? <DetailedHogCard hog={this.props.hog}/> : <HogCard hog={this.props.hog}/>} <div/>
+    return (<div> {this.state.showDetails ? <DetailedHogCard hog={this.props.hog}/> : <HogCard hog={this.props.hog}/>} </div>)
   }
 
 }
